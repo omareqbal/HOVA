@@ -69,10 +69,7 @@
                                                 <div class="form-group" style="padding-top: 12px;">
                                                     <button id="signinSubmit" type="submit" class="btn btn-success btn-block">Sign in</button>
                                                 </div>
-						<div class="form-group divider">
-							<hr class="left"><small>New to site?</small><hr class="right">
-						</div>
-						<p class="form-group"><a href="#" class="btn btn-info btn-block">Create an account</a></p>
+						
 					</form>
 				</div>
 			</div>

@@ -17,7 +17,6 @@
           <title>Auditorium and Room Booking</title>
     </head>
     <body>
-       
         <%
             if(session.getAttribute("userid")==null || session.getAttribute("userid").equals("")){
                 response.sendRedirect("index.jsp");
@@ -29,15 +28,28 @@
         <div class="container">
         <br/>
             <div class="row">
-                <div class="col-md">
+                <div class="col"></div>
+                <div class="col-6">
                     <h4>Welcome Authority, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h4>
                 </div>
-                <div class="col-sm">
-                    <a class="btn btn-primary right" href="Logout.jsp">Logout</a>
-                </div>
+                <div class="col"></div>
+                
             </div>
                 <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-7">
+                <button onclick="showpending()" class="btn btn-primary">Pending Requests</button>
+                   
+                <button onclick="showapproved()" class="btn btn-primary">Approved Requests</button>
+                    </div>
+                    
+                    <div class="col-1"> <a class="btn btn-primary right" href="Logout.jsp">Logout</a></div>
+                </div>
+        <div class="row" id="pending">
         <% List<Booking> res=Booking.getPendingForAuthority(); %>
+        
         
         <h5>Pending Requests </h5>
         <table class="table table-bordered table-hover" >
@@ -66,7 +78,7 @@
                 <td><%=b.applicant_name %></td>
                 <td><%=b.applicant_phone %></td>
                 <td><%=b.applicant_email %></td>
-                <td><%=slot %></td>
+                <td style="width:200px;"><%=slot %></td>
                 <td><%=b.room_id %></td>
                 <td><%=b.floor %></td>
                 <td><%=b.building %></td>
@@ -82,11 +94,60 @@
     </tbody>
   </table>
         </div>
+        
+        
+        
+        <div class="row" id="approved">
+        <% List<Booking> res2=Booking.getApprovedForAuthority(); %>
+        
+        
+        <h5>Approved Requests </h5>
+        <table class="table table-bordered table-hover" >
+        <thead>
+          <tr>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Booking ID</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant ID</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant Name</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant Phone</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant Email</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Booking Slot</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Room ID</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Floor</th>
+            <th scope="col" class="text-center" style="vertical-align: middle;">Building</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+        <% for(Booking b:res2){
+            String slot=Booking.getSlot(b.booking_id);
+        %>
+             <tr>
+                <td><%=b.booking_id %></td>
+                <td><%=b.applicant_id %></td>
+                <td><%=b.applicant_name %></td>
+                <td><%=b.applicant_phone %></td>
+                <td><%=b.applicant_email %></td>
+                <td style="width:200px;"><%=slot %></td>
+                <td><%=b.room_id %></td>
+                <td><%=b.floor %></td>
+                <td><%=b.building %></td>
+                
+                
+              </tr>
+
+         <%  }
+        %>
+        
+    </tbody>
+  </table>
+        </div>
+        </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
 
            <script>
+               $("#approved").hide();
             function actionByAuthority(booking_id,user_id,action){
                 $.ajax({
                     url:"authorityapproval.jsp",
@@ -100,6 +161,17 @@
                         location.reload();
                        }
                 });
+            }
+            function showpending(){
+                $("#approved").hide();
+                $("#pending").show();
+
+            }
+
+            function showapproved(){
+                $("#pending").hide();
+                $("#approved").show();
+
             }
         </script>
     </body>

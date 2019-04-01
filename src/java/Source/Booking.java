@@ -63,12 +63,60 @@ public class Booking {
     }
     
     
+    public static List<Booking> getApprovedForAuthority(){
+        try{
+            Connection conn=Connect.returnConnection();
+            Statement stmt=conn.createStatement();
+            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
+                    + " WHERE authority!='PENDING'");
+            List<Booking> res=new ArrayList<>();
+            
+            while(rs.next()){
+                res.add(new Booking(rs.getInt("booking_id"),rs.getString("room_id"),rs.getString("applicant_id"),
+                        rs.getString("dept"),rs.getString("authority"),rs.getString("security"),rs.getString("av_cell"),
+                        rs.getString("name"),rs.getString("phone"),rs.getString("email"),
+                                rs.getString("building"),rs.getInt("floor")));
+            }
+            return res;
+            
+
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return new ArrayList<>();
+    }
+    
+    
     public static List<Booking> getPendingForSecurity(){
         try{
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE security='PENDING' AND authority!=PENDING");
+                    + " WHERE security='PENDING' AND authority!='PENDING'");
+            List<Booking> res=new ArrayList<>();
+            System.out.println(rs);
+            while(rs.next()){
+                res.add(new Booking(rs.getInt("booking_id"),rs.getString("room_id"),rs.getString("applicant_id"),
+                        rs.getString("dept"),rs.getString("authority"),rs.getString("security"),rs.getString("av_cell"),
+                        rs.getString("name"),rs.getString("phone"),rs.getString("email"),
+                                rs.getString("building"),rs.getInt("floor")));
+            }
+            return res;
+            
+
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return new ArrayList<>();
+    }
+    public static List<Booking> getApprovedForSecurity(){
+        try{
+            Connection conn=Connect.returnConnection();
+            Statement stmt=conn.createStatement();
+            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
+                    + " WHERE security!='PENDING'");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -92,7 +140,31 @@ public class Booking {
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE av_cell='PENDING' AND authority!=PENDING");
+                    + " WHERE av_cell='PENDING' AND authority!='PENDING'");
+            List<Booking> res=new ArrayList<>();
+            
+            while(rs.next()){
+                res.add(new Booking(rs.getInt("booking_id"),rs.getString("room_id"),rs.getString("applicant_id"),
+                        rs.getString("dept"),rs.getString("authority"),rs.getString("security"),rs.getString("av_cell"),
+                        rs.getString("name"),rs.getString("phone"),rs.getString("email"),
+                                rs.getString("building"),rs.getInt("floor")));
+            }
+            return res;
+            
+
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return new ArrayList<>();
+    }
+    
+    public static List<Booking> getApprovedForAVCell(){
+        try{
+            Connection conn=Connect.returnConnection();
+            Statement stmt=conn.createStatement();
+            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
+                    + " WHERE av_cell!='PENDING' AND av_cell!='NA'");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -117,6 +189,31 @@ public class Booking {
            
             PreparedStatement stmt=conn.prepareStatement("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
                     + " WHERE Applicant.dept=? AND Booking.dept='PENDING'");
+            stmt.setString(1,dept);
+            ResultSet rs=stmt.executeQuery();
+            List<Booking> res=new ArrayList<>();
+            while(rs.next()){
+                res.add(new Booking(rs.getInt("booking_id"),rs.getString("room_id"),rs.getString("applicant_id"),
+                        rs.getString("dept"),rs.getString("authority"),rs.getString("security"),rs.getString("av_cell"),
+                        rs.getString("name"),rs.getString("phone"),rs.getString("email"),
+                                rs.getString("building"),rs.getInt("floor")));
+            }
+            return res;
+            
+
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return new ArrayList<>();
+    }
+    
+    public static List<Booking> getApprovedForDept(String dept){
+        try{
+            Connection conn=Connect.returnConnection();
+           
+            PreparedStatement stmt=conn.prepareStatement("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
+                    + " WHERE Applicant.dept=? AND Booking.dept!='PENDING'");
             stmt.setString(1,dept);
             ResultSet rs=stmt.executeQuery();
             List<Booking> res=new ArrayList<>();

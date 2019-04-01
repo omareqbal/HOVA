@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col-6">
-                    <h3>Welcome Applicant, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h3>
+                    <h4>Welcome Applicant, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h4>
                 </div>
                 <div class="col"></div>
                 
@@ -103,16 +103,16 @@
             <table class="table table-bordered" >
             <thead>
               <tr>
-                <th scope="col">Booking ID</th>
-                <th scope="col">Slot</th>
-                <th scope="col">Room ID</th>
-                <th scope="col">Floor</th>
-                <th scope="col">Building</th>
-                <th scope="col">Dept Approval</th>
-                <th scope="col">Authority Approval</th>
-                <th scope="col">AV Cell Approval</th>
-                <th scope="col">Security Approval</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Booking ID</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Booking Slot</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Room ID</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Floor</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Building</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Dept Approval</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Authority Approval</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">AV Cell Approval</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Security Approval</th>
+                <th scope="col" class="text-center" style="vertical-align: middle;">Action</th>
                 
               </tr>
             </thead>
@@ -122,7 +122,7 @@
             %>
                  <tr>
                     <td><%=b.booking_id %></td>
-                    <td><%=slot %></td>
+                    <td style="width:200px;"><%=slot %></td>
                     <td><%=b.room_id %></td>
                     <td><%=b.floor %></td>
                     <td><%=b.building %></td>
