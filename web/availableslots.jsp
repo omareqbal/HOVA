@@ -29,7 +29,7 @@
             if(is_avail){
         %>
         <label><li style="display:inline-block;" align="left"><input type="checkbox" name="avail_slot" value="<%=s%>"> <%=s%></li></label>
-        <br
+        <br/>
         <%}
             else{
         %>

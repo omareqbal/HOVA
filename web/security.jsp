@@ -68,7 +68,8 @@
                 <td><%=b.floor %></td>
                 <td><%=b.building %></td>
                 <td><button onclick="actionBySecurity(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',1)" class="btn btn-success">Approve</button>
-                    <button onclick="actionBySecurity(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',0)" class="btn btn-danger">Reject</button></td>
+                 <%--   <button onclick="actionBySecurity(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',0)" class="btn btn-danger">Reject</button>--%>
+                </td>
                 
               </tr>
 
