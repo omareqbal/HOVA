@@ -26,15 +26,29 @@
         %>
         <div class='container'>
             <br/>
+            <br/>
             <div class="row">
-                <div class="col-md">
+                <div class="col"></div>
+                <div class="col-6">
                     <h3>Welcome Applicant, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h3>
                 </div>
-                <div class="col-sm">
-                    <a class="btn btn-primary right" href="Logout.jsp">Logout</a>
-                </div>
+                <div class="col"></div>
+                
             </div>
+                
                 <br/>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-7">
+                <button onclick="shownew()" class="btn btn-primary">New Booking</button>
+                   
+                <button onclick="showprev()" class="btn btn-primary">Previous Bookings</button>
+                    </div>
+                    
+                    <div class="col-1"> <a class="btn btn-primary right" href="Logout.jsp">Logout</a></div>
+                </div>
+                <br/><br/>
+        <div id="new_booking">
         <div class='row'>
             <h4>New Booking</h4>
         </div>
@@ -44,7 +58,7 @@
         <%
             List<String> rooms=Booking.getRooms();
         %>
-        <div class="row">
+        <div class="row" style="width:250px;">
         Select Room
         <select id="room" class='form-control'>
             <%
@@ -58,9 +72,11 @@
        
         </div>
         <br/>
-         Select Date
         <div class='row'>
-        <input id="datepicker" class="datepicker" data-date-format="mm/dd/yyyy" width="276" />
+         Select Date
+        </div>
+        <div class="row" style="width:250;">
+        <input id="datepicker" class="datepicker" data-date-format="mm/dd/yyyy" />
         </div>
         <br/>
         <div class='row'>
@@ -78,8 +94,9 @@
         <div class="row">
             <button class="btn btn-primary" onclick="book()">Book</button>
         </div>
+        </div>
         <br/>
-        <div class='row'>
+        <div id="prev_booking" class='row'>
             <h4>Previous Bookings</h4>
             <% List<Booking> res=Booking.getBookingsForApplicant(String.valueOf(session.getAttribute("userid"))); %>
              
@@ -95,6 +112,7 @@
                 <th scope="col">Authority Approval</th>
                 <th scope="col">AV Cell Approval</th>
                 <th scope="col">Security Approval</th>
+                <th scope="col">Action</th>
                 
               </tr>
             </thead>
@@ -112,6 +130,7 @@
                     <td><%=b.authority %></td>
                     <td><%=b.av_cell %></td>
                     <td><%=b.security %></td>
+                    <td><button onclick="cancel(<%=b.booking_id%>)" class="btn btn-danger">Cancel</button>
 
                   </tr>
 
@@ -123,7 +142,10 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
      <script>
-        $("#datepicker").datepicker();
+        $("#datepicker").datepicker({
+            startDate:'-1d'
+        });
+        $("#prev_booking").hide();
         function showslots(){
             
             room=$('#room').val();
@@ -171,6 +193,32 @@
                 });
             }
             
+        }
+        
+        
+        function cancel(booking_id){
+            $.ajax({
+                url:"cancelbooking.jsp",
+                type:"POST",
+                data:{"booking_id":booking_id},
+                success:function(){
+                    alert("Booking Cancelled.");
+                    location.reload();
+                }
+            });
+        }
+        
+        
+        function shownew(){
+            $("#prev_booking").hide();
+            $("#new_booking").show();
+       
+        }
+        
+        function showprev(){
+            $("#new_booking").hide();
+            $("#prev_booking").show();
+       
         }
     </script>
     </body>

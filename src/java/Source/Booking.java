@@ -42,7 +42,8 @@ public class Booking {
         try{
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
-            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id) WHERE authority='PENDING'");
+            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
+                    + " WHERE authority='PENDING' AND Booking.dept!='PENDING'");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -66,7 +67,8 @@ public class Booking {
         try{
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
-            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id) WHERE security='PENDING'");
+            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
+                    + " WHERE security='PENDING' AND authority!=PENDING");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -89,7 +91,8 @@ public class Booking {
         try{
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
-            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id) WHERE av_cell='PENDING'");
+            ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
+                    + " WHERE av_cell='PENDING' AND authority!=PENDING");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -354,6 +357,23 @@ public class Booking {
           return false;
        }
     
+    }
+    
+    public static boolean cancelBooking(int booking_id){
+        try{
+            Connection conn=Connect.returnConnection();
+            PreparedStatement stmt=conn.prepareStatement("DELETE FROM Booking_slot WHERE booking_id=?");
+            stmt.setInt(1,booking_id);
+            stmt.executeUpdate();
+            stmt=conn.prepareStatement("DELETE FROM Booking WHERE booking_id=?");
+            stmt.setInt(1,booking_id);
+            stmt.executeUpdate();
+            return true;
+        }
+        catch(Exception e){
+           System.out.println(e);
+          return false;
+       }
     }
     
     

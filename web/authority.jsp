@@ -38,24 +38,23 @@
             </div>
                 <br/>
         <% List<Booking> res=Booking.getPendingForAuthority(); %>
-        
+ 
         <h5>Pending Requests </h5>
         <table class="table table-bordered table-hover" >
         <thead>
           <tr>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Booking ID</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant ID</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant Name</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant Phone</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Applicant Email</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Booking Slot</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Room ID</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Floor</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Building</th>
-            <th scope="col" class="text-center" style="vertical-align: middle;">Action</th>
+            <th scope="col">Booking ID</th>
+            <th scope="col">Applicant ID</th>
+            <th scope="col">Applicant Name</th>
+            <th scope="col">Applicant Phone</th>
+            <th scope="col">Applicant Email</th>
+            <th scope="col">Slot</th>
+            <th scope="col">Room ID</th>
+            <th scope="col">Floor</th>
+            <th scope="col">Building</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
-        
         <tbody>
         <% for(Booking b:res){
             String slot=Booking.getSlot(b.booking_id);
@@ -66,12 +65,13 @@
                 <td><%=b.applicant_name %></td>
                 <td><%=b.applicant_phone %></td>
                 <td><%=b.applicant_email %></td>
-                <td><%=slot %></td>
+                <td style="width:200px;"><%=slot %></td>
                 <td><%=b.room_id %></td>
                 <td><%=b.floor %></td>
                 <td><%=b.building %></td>
                 <td><button onclick="actionByAuthority(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',1)" class="btn btn-success btn-block">Approve</button>
-                    <button onclick="actionByAuthority(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',0)" class="btn btn-danger btn-block">Reject</button></td>
+                  <%--  <button onclick="actionByAuthority(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',0)" class="btn btn-danger btn-block">Reject</button> --%>
+                </td>
                 
               </tr>
 

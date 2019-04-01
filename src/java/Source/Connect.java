@@ -16,7 +16,7 @@ public class Connect {
         String DB_URL="jdbc:mysql://localhost:3306/dbmslab";
         try{
             Class.forName(JDBC_DRIVER);
-            conn=DriverManager.getConnection(DB_URL,"root","vishal");
+            conn=DriverManager.getConnection(DB_URL,"root","sf");
             
             return conn;
         }
