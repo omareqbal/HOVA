@@ -359,5 +359,22 @@ public class Booking {
     
     }
     
+    public static boolean cancelBooking(int booking_id){
+        try{
+            Connection conn=Connect.returnConnection();
+            PreparedStatement stmt=conn.prepareStatement("DELETE FROM Booking_slot WHERE booking_id=?");
+            stmt.setInt(1,booking_id);
+            stmt.executeUpdate();
+            stmt=conn.prepareStatement("DELETE FROM Booking WHERE booking_id=?");
+            stmt.setInt(1,booking_id);
+            stmt.executeUpdate();
+            return true;
+        }
+        catch(Exception e){
+           System.out.println(e);
+          return false;
+       }
+    }
+    
     
 }

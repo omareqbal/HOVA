@@ -95,6 +95,7 @@
                 <th scope="col">Authority Approval</th>
                 <th scope="col">AV Cell Approval</th>
                 <th scope="col">Security Approval</th>
+                <th scope="col">Action</th>
                 
               </tr>
             </thead>
@@ -112,6 +113,7 @@
                     <td><%=b.authority %></td>
                     <td><%=b.av_cell %></td>
                     <td><%=b.security %></td>
+                    <td><button onclick="cancel(<%=b.booking_id%>)" class="btn btn-danger">Cancel</button>
 
                   </tr>
 
@@ -171,6 +173,19 @@
                 });
             }
             
+        }
+        
+        
+        function cancel(booking_id){
+            $.ajax({
+                url:"cancelbooking.jsp",
+                type:"POST",
+                data:{"booking_id":booking_id},
+                success:function(){
+                    alert("Booking Cancelled.");
+                    location.reload();
+                }
+            });
         }
     </script>
     </body>
