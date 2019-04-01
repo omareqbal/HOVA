@@ -28,23 +28,24 @@
             <br/>
             <br/>
             <div class="row">
-                <div class="col-md">
+                <div class="col"></div>
+                <div class="col-6">
                     <h3>Welcome Applicant, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h3>
                 </div>
-                <div class="col-sm">
-                   
-                </div>
+                <div class="col"></div>
+                
             </div>
                 
                 <br/>
                 <div class="row">
-                    <div class="col-lg">
+                    <div class="col-4"></div>
+                    <div class="col-7">
                 <button onclick="shownew()" class="btn btn-primary">New Booking</button>
                    
                 <button onclick="showprev()" class="btn btn-primary">Previous Bookings</button>
                     </div>
-                    <div class="col-sm"></div>
-                    <div class="col-sm"> <a class="btn btn-primary right" href="Logout.jsp">Logout</a></div>
+                    
+                    <div class="col-1"> <a class="btn btn-primary right" href="Logout.jsp">Logout</a></div>
                 </div>
                 <br/><br/>
         <div id="new_booking">
@@ -73,7 +74,9 @@
         <br/>
         <div class='row'>
          Select Date
-        <input id="datepicker" class="datepicker" data-date-format="mm/dd/yyyy" width="250" />
+        </div>
+        <div class="row" style="width:250;">
+        <input id="datepicker" class="datepicker" data-date-format="mm/dd/yyyy" />
         </div>
         <br/>
         <div class='row'>
@@ -139,7 +142,9 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
      <script>
-        $("#datepicker").datepicker();
+        $("#datepicker").datepicker({
+            startDate:'-1d'
+        });
         $("#prev_booking").hide();
         function showslots(){
             
