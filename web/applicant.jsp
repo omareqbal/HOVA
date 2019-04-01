@@ -24,30 +24,35 @@
                 response.sendRedirect("index.jsp");
             }
         %>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+          <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="#"><%=session.getAttribute("name") %></a>
+                  </li>
+              </ul>
+          </div>
+          <div class="mx-auto order-0">
+              <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                      <a onclick="shownew()" class="nav-link" href="#" style="width:120px;" align="middle">New Booking</a>
+                  </li>
+                  <li class="nav-item">
+                      <a onclick="showprev()" class="nav-link" href="#" style="width:150px;" align="middle">Previous Bookings</a>
+                  </li>
+              </ul>
+          </div>
+          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="Logout.jsp">Logout</a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
         <div class='container'>
             <br/>
             <br/>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-6">
-                    <h4>Welcome Applicant, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h4>
-                </div>
-                <div class="col"></div>
-                
-            </div>
-                
-                <br/>
-                <div class="row">
-                    <div class="col-4"></div>
-                    <div class="col-7">
-                <button onclick="shownew()" class="btn btn-primary">New Booking</button>
-                   
-                <button onclick="showprev()" class="btn btn-primary">Previous Bookings</button>
-                    </div>
-                    
-                    <div class="col-1"> <a class="btn btn-primary right" href="Logout.jsp">Logout</a></div>
-                </div>
-                <br/><br/>
         <div id="new_booking">
         <div class='row'>
             <h4>New Booking</h4>
