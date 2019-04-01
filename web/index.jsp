@@ -13,8 +13,14 @@
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        
-         <link rel="stylesheet" href="indexCSS.css"> 
+        <link href='https://fonts.googleapis.com/css?family=Roleway' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Libre Baskerville' rel='stylesheet'> 
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="indexCSS.css"> 
     </head>
     <body>
         <%
@@ -34,14 +40,15 @@
                 
             }
         %>
-        <h1 align="center">Auditorium and Room Booking System</h1>
-    <div class="container">
+        <h1 align="center" style="font-family: 'Libre Baskerville';">Auditorium and Room Booking System</h1>
+    <br/>
+        <div class="container" >
 		<div class="row">
 			<div class="panel panel-primary">
 				<div class="panel-body">
 					<form method="POST" action="Login.jsp" role="form">
 						<div class="form-group">
-							<h2>Sign in</h2>
+							<h2 align="middle">Sign in to HOVA</h2>
 						</div>
 						<div class="formEnter"> Username
 							<input id="signinEmail" type="text" maxlength="50" class="form-control" name="username">
@@ -50,8 +57,8 @@
 							Password
 							<input id="signinPassword" type="password" maxlength="25" class="form-control" name="password">
 						</div>
-                                                <br/>Login As:
-                                                <div class="radio">
+                              
+<!--                                                <div class="radio">
                                                     <label><input type="radio" name="type" value="0" checked>Applicant</label>
                                                 </div>
                                                 <div class="radio">
@@ -65,11 +72,38 @@
                                                 </div>
                                                 <div class="radio">
                                                     <label><input type="radio" name="type" value="4">Security</label>
+                                                </div>-->
+                                                <div class="row">
+                                                  <div class="col-xs-12">
+
+                                                    <div class="btn-group btn-group-vertical" data-toggle="buttons">
+                                                      <label class="btn active">
+                                                        <input type="radio" name='type' value="0" checked ><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i> <span>Applicant</span>
+                                                      </label>
+                                                      <label class="btn">
+                                                        <input type="radio" name='type' value="1"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Authority</span>
+                                                      </label>
+                                                      <label class="btn">
+                                                        <input type="radio" name='type' value="2"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> AV Cell</span>
+                                                      </label>  
+                                                      <label class="btn">
+                                                        <input type="radio" name='type' value="3"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Department Office</span>
+                                                      </label>
+                                                       <label class="btn">
+                                                        <input type="radio" name='type' value="4"><i class="fa fa-circle-o fa-2x"></i><i class="fa fa-dot-circle-o fa-2x"></i><span> Security</span>
+                                                      </label>
+                                                    </div>
+
+                                                  </div>
                                                 </div>
-                                                <div class="form-group" style="padding-top: 12px;">
+                                                        
+                                                    <div class="form-group" style="padding-top: 12px;">
                                                     <button id="signinSubmit" type="submit" class="btn btn-success btn-block">Sign in</button>
                                                 </div>
-						
+						<div class="form-group divider">
+							<hr class="left"><small>New to site?</small><hr class="right">
+						</div>
+						<p class="form-group"><a href="#" class="btn btn-info btn-block">Contact your Department</a></p>
 					</form>
 				</div>
 			</div>
@@ -77,4 +111,20 @@
 	</div>
         
     </body>
+    
+    <script>
+  export default {
+    data() {
+      return {
+        selected: 'radio1',
+        options: [
+          { text: 'Radio 1', value: 'radio1' },
+          { text: 'Radio 3', value: 'radio2' },
+          { text: 'Radio 3 (disabled)', value: 'radio3', disabled: true },
+          { text: 'Radio 4', value: 'radio4' }
+        ]
+      }
+    }
+  }
+</script>
 </html>
