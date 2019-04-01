@@ -26,15 +26,28 @@
         %>
         <div class='container'>
             <br/>
+            <br/>
             <div class="row">
                 <div class="col-md">
                     <h3>Welcome Applicant, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h3>
                 </div>
                 <div class="col-sm">
-                    <a class="btn btn-primary right" href="Logout.jsp">Logout</a>
+                   
                 </div>
             </div>
+                
                 <br/>
+                <div class="row">
+                    <div class="col-lg">
+                <button onclick="shownew()" class="btn btn-primary">New Booking</button>
+                   
+                <button onclick="showprev()" class="btn btn-primary">Previous Bookings</button>
+                    </div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm"> <a class="btn btn-primary right" href="Logout.jsp">Logout</a></div>
+                </div>
+                <br/><br/>
+        <div id="new_booking">
         <div class='row'>
             <h4>New Booking</h4>
         </div>
@@ -44,7 +57,7 @@
         <%
             List<String> rooms=Booking.getRooms();
         %>
-        <div class="row">
+        <div class="row" style="width:250px;">
         Select Room
         <select id="room" class='form-control'>
             <%
@@ -60,7 +73,7 @@
         <br/>
         <div class='row'>
          Select Date
-        <input id="datepicker" class="datepicker" data-date-format="mm/dd/yyyy" width="276" />
+        <input id="datepicker" class="datepicker" data-date-format="mm/dd/yyyy" width="250" />
         </div>
         <br/>
         <div class='row'>
@@ -78,8 +91,9 @@
         <div class="row">
             <button class="btn btn-primary" onclick="book()">Book</button>
         </div>
+        </div>
         <br/>
-        <div class='row'>
+        <div id="prev_booking" class='row'>
             <h4>Previous Bookings</h4>
             <% List<Booking> res=Booking.getBookingsForApplicant(String.valueOf(session.getAttribute("userid"))); %>
              
@@ -126,6 +140,7 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
      <script>
         $("#datepicker").datepicker();
+        $("#prev_booking").hide();
         function showslots(){
             
             room=$('#room').val();
@@ -186,6 +201,19 @@
                     location.reload();
                 }
             });
+        }
+        
+        
+        function shownew(){
+            $("#prev_booking").hide();
+            $("#new_booking").show();
+       
+        }
+        
+        function showprev(){
+            $("#new_booking").hide();
+            $("#prev_booking").show();
+       
         }
     </script>
     </body>
