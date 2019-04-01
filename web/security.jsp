@@ -25,33 +25,40 @@
                 response.sendRedirect("index.jsp");
             }
         %>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+          <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="#"><%=session.getAttribute("name") %></a>
+                  </li>
+              </ul>
+          </div>
+          <div class="mx-auto order-0">
+              <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                      <a onclick="showpending()" class="nav-link" href="#" style="width:200px;" align="middle">Pending Bookings</a>
+                  </li>
+                  <li class="nav-item">
+                      <a onclick="showapproved()" class="nav-link" href="#" style="width:200px;" align="middle">Approved Bookings</a>
+                  </li>
+              </ul>
+          </div>
+          <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="Logout.jsp">Logout</a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
         <div class="container">
         <br/>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-6">
-                    <h4>Welcome Security, <%=session.getAttribute("name") %> ( <%=session.getAttribute("userid") %> )</h4>
-                </div>
-                <div class="col"></div>
-                
-            </div>
-                <br/>
-                <br/>
-                <div class="row">
-                    <div class="col-4"></div>
-                    <div class="col-7">
-                <button onclick="showpending()" class="btn btn-primary">Pending Requests</button>
-                   
-                <button onclick="showapproved()" class="btn btn-primary">Approved Requests</button>
-                    </div>
-                    
-                    <div class="col-1"> <a class="btn btn-primary right" href="Logout.jsp">Logout</a></div>
-                </div>
+            
         <div class="row" id="pending">
         <% List<Booking> res=Booking.getPendingForSecurity(); %>
         
         
-        <h5>Pending Requests </h5>
+        <h5>Pending Bookings </h5>
         <table class="table table-bordered table-hover" >
         <thead>
           <tr>
@@ -101,7 +108,7 @@
         <% List<Booking> res2=Booking.getApprovedForSecurity(); %>
         
         
-        <h5>Approved Requests </h5>
+        <h5>Approved Bookings </h5>
         <table class="table table-bordered table-hover" >
         <thead>
           <tr>
