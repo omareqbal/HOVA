@@ -1,14 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @author H.O.V.A.
  */
+
 package Source;
 import java.sql.*;
-/**
- *
- * @author vishal
- */
+
 public class Connect {
     public static  Connection returnConnection(){
         Connection conn=null;
@@ -16,7 +12,7 @@ public class Connect {
         String DB_URL="jdbc:mysql://localhost:3306/dbmslab";
         try{
             Class.forName(JDBC_DRIVER);
-            conn=DriverManager.getConnection(DB_URL,"root","sf");
+            conn=DriverManager.getConnection(DB_URL,"root","");
             
             return conn;
         }

@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
-    Created on : 6 Mar, 2018, 11:21:22 AM
-    Author     : vishal
+    Created on : 31 Mar, 2019, 2:59:40 PM
+    Author     : H.O.V.A.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,6 +21,7 @@
         <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="indexCSS.css"> 
+
     </head>
     <body>
         <%
@@ -50,14 +51,18 @@
 						<div class="form-group">
 							<h2 align="middle">Sign in to H.O.V.A</h2>
 						</div>
-						<div class="formEnter"> Username
-							<input id="signinEmail" type="text" maxlength="50" class="form-control" name="username">
+						<div class="input-group"> 
+                                                    <span class="input-group-addon bg-white border-left-0"><i class="glyphicon glyphicon-user"></i></span>
+                                                    <input id="signinEmail" type="text" maxlength="50" placeholder="Username" class="form-control" name="username">
+                                                    
+                                                </div>
+                                            <br/>
+						<div class="input-group">
+                                                        
+                                                        <span class="input-group-addon bg-white border-left-0"><i class="glyphicon glyphicon-lock"></i></span>
+							<input id="signinPassword" type="password" maxlength="25" placeholder="Password" class="form-control" name="password">
 						</div>
-						<div class="form-group">
-							Password
-							<input id="signinPassword" type="password" maxlength="25" class="form-control" name="password">
-						</div>
-                              
+                                               <br/>
 <!--                                                <div class="radio">
                                                     <label><input type="radio" name="type" value="0" checked>Applicant</label>
                                                 </div>
@@ -100,16 +105,18 @@
                                                     <div class="form-group" style="padding-top: 12px;">
                                                     <button id="signinSubmit" type="submit" class="btn btn-success btn-block">Sign in</button>
                                                 </div>
-						<div class="form-group divider">
-							<hr class="left"><small>New to site?</small><hr class="right">
-						</div>
-						<p class="form-group"><a href="#" class="btn btn-info btn-block">Contact your Department</a></p>
-					</form>
+						</form>
 				</div>
 			</div>
 		</div>
 	</div>
-        
+    <script>
+        $(document).keypress(function(e){
+    if (e.which == 13){
+        $("#signinSubmit").click();
+    }
+  });
+    </script>
     </body>
 
 </html>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : authority.jsp
     Created on : 30 Mar, 2019, 6:08:35 PM
-    Author     : vishal
+    Author     : H.O.V.A.
 --%>
 
 <%@page import="Source.Booking,java.util.*"%>
@@ -91,7 +91,7 @@
                 <td><%=b.floor %></td>
                 <td><%=b.building %></td>
                 <td><button onclick="actionByAuthority(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',1)" class="btn btn-success btn-block">Approve</button>
-                 <%--   <button onclick="actionByAuthority(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',0)" class="btn btn-danger btn-block">Reject</button>--%>
+                   <button onclick="actionByAuthority(<%=b.booking_id %>,'<%=session.getAttribute("userid") %>',0)" class="btn btn-danger btn-block">Reject</button>
                 </td>
                 
               </tr>

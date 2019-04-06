@@ -1,17 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @author H.O.V.A.
  */
+
 package Source;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author vishal
- */
 public class Booking {
     public int booking_id;
     public String room_id, applicant_id, dept,authority, security,av_cell ;
@@ -43,7 +38,7 @@ public class Booking {
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE authority='PENDING' AND Booking.dept!='PENDING'");
+                    + " WHERE authority='PENDING' AND Booking.dept!='PENDING' AND Booking.dept!='REJECTED'");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -68,7 +63,7 @@ public class Booking {
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE authority!='PENDING'");
+                    + " WHERE authority!='PENDING' AND authority!='REJECTED'");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -93,7 +88,7 @@ public class Booking {
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE security='PENDING' AND authority!='PENDING'");
+                    + " WHERE security='PENDING' AND authority!='PENDING' AND authority!='REJECTED'");
             List<Booking> res=new ArrayList<>();
             System.out.println(rs);
             while(rs.next()){
@@ -116,7 +111,7 @@ public class Booking {
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE security!='PENDING'");
+                    + " WHERE security!='PENDING' AND security!='REJECTED'");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -140,7 +135,7 @@ public class Booking {
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE av_cell='PENDING' AND authority!='PENDING'");
+                    + " WHERE av_cell='PENDING' AND authority!='PENDING' AND authority!='REJECTED' ");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -164,7 +159,7 @@ public class Booking {
             Connection conn=Connect.returnConnection();
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE av_cell!='PENDING' AND av_cell!='NA'");
+                    + " WHERE av_cell!='PENDING' AND av_cell!='NA' AND av_cell!='REJECTED'");
             List<Booking> res=new ArrayList<>();
             
             while(rs.next()){
@@ -213,7 +208,7 @@ public class Booking {
             Connection conn=Connect.returnConnection();
            
             PreparedStatement stmt=conn.prepareStatement("SELECT * FROM Booking natural join Room join Applicant using(applicant_id)"
-                    + " WHERE Applicant.dept=? AND Booking.dept!='PENDING'");
+                    + " WHERE Applicant.dept=? AND Booking.dept!='PENDING' AND Booking.dept!='REJECTED'");
             stmt.setString(1,dept);
             ResultSet rs=stmt.executeQuery();
             List<Booking> res=new ArrayList<>();
@@ -309,6 +304,12 @@ public class Booking {
             stmt.setString(1,authority);
             stmt.setInt(2,booking_id);
             stmt.executeUpdate();
+            if(action==0){
+                stmt=conn.prepareStatement("UPDATE Booking_slot"
+                        + " SET status='REJECTED' WHERE booking_id=?");
+                stmt.setInt(1,booking_id);
+                stmt.executeUpdate();
+            }
             return true;
         }
         catch(Exception e){
@@ -385,7 +386,7 @@ public class Booking {
         try{
             Connection conn=Connect.returnConnection();
             PreparedStatement stmt=conn.prepareStatement("SELECT * FROM Booking_slot"
-                    + " WHERE room_id=? AND date=?");
+                    + " WHERE room_id=? AND date=? AND status!='REJECTED'");
                     
             stmt.setString(1,room_id);
             stmt.setString(2,date);
@@ -418,7 +419,6 @@ public class Booking {
           Connection conn=Connect.returnConnection();
           String dept="PENDING";
           String av_cell="PENDING";
-          //date=date.substring(0,date.length()-4)+date.substring(date.length()-2);
 
           if(role==1)
               dept="NA";
@@ -440,7 +440,7 @@ public class Booking {
           String slots[]=time_slots.split(",");
          
           for(String slot:slots){
-              stmt=conn.prepareStatement("INSERT INTO Booking_slot VALUES(?,?,?,?)");
+              stmt=conn.prepareStatement("INSERT INTO Booking_slot VALUES(?,?,?,?,'ACCEPTED')");
               stmt.setInt(1,booking_id);
               stmt.setString(2,room_id);
               stmt.setString(3, date);

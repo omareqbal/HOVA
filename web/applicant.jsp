@@ -1,8 +1,9 @@
 <%-- 
     Document   : applicant
     Created on : 30 Mar, 2019, 6:14:56 PM
-    Author     : vishal
+    Author     : H.O.V.A.
 --%>
+
 <%@page import="Source.Booking,java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,11 +35,12 @@
           </div>
           <div class="mx-auto order-0">
               <ul class="navbar-nav mx-auto">
-                  <li class="nav-item">
-                      <a onclick="shownew()" class="nav-link" href="#" style="width:120px;" align="middle">New Booking</a>
-                  </li>
+                  
                   <li class="nav-item">
                       <a onclick="showprev()" class="nav-link" href="#" style="width:150px;" align="middle">Previous Bookings</a>
+                  </li>
+                  <li class="nav-item">
+                      <a onclick="shownew()" class="nav-link" href="#" style="width:120px;" align="middle">New Booking</a>
                   </li>
               </ul>
           </div>
@@ -93,7 +95,9 @@
         </div>
         <br/>
         <div class="row">
-            <input type="checkbox" name="av_cell">AV Cell Required
+            <label>
+            <input type="checkbox" name="av_cell"> AV Cell Required
+            </label>
         </div>
         <br/>
         <div class="row">
@@ -125,7 +129,24 @@
             <% for(Booking b:res){
                 String slot=Booking.getSlot(b.booking_id);
             %>
-                 <tr>
+            
+            <% boolean rejected=false;
+                boolean accepted=false;
+                if(b.dept.equals("REJECTED")||b.authority.equals("REJECTED")||b.av_cell.equals("REJECTED")||b.security.equals("REJECTED"))
+                    rejected=true;
+                if(!(b.dept.equals("PENDING")||b.authority.equals("PENDING")||b.av_cell.equals("PENDING")||b.security.equals("PENDING")) )
+                    accepted=true;
+            %>
+            
+            <% if(rejected){ %>
+                <tr style="background:#fd8a7c">
+             <%} 
+                else if(accepted){%>
+                    <tr style="background:#96e0a0;">
+             <% } 
+                else {%>
+                    <tr>
+            <% } %>
                     <td><%=b.booking_id %></td>
                     <td style="width:200px;"><%=slot %></td>
                     <td><%=b.room_id %></td>
@@ -137,7 +158,7 @@
                     <td><%=b.security %></td>
                     <td><button onclick="cancel(<%=b.booking_id%>)" class="btn btn-danger">Cancel</button>
 
-                  </tr>
+            </tr>
 
              <%  }
             %>
@@ -150,13 +171,24 @@
         $("#datepicker").datepicker({
             startDate:'-1d'
         });
-        $("#prev_booking").hide();
+        $("#new_booking").hide();
         function showslots(){
             
             room=$('#room').val();
             date=$('#datepicker').val();
+            var today = new Date(); 
+            var dd = today.getDate(); 
+            if(dd<10) dd='0'+dd;
+            
+            var mm = today.getMonth()+1; 
+            if(mm<10) mm='0'+mm;
+            var yyyy = today.getFullYear(); 
+            var cur_date=mm+"/"+dd+"/"+yyyy;
             if(date=="")
                 alert("Select a date.");
+            else if(date<cur_date){
+                alert("Invalid date.");
+            }
             else{
                 $.ajax({
                     url:"availableslots.jsp",

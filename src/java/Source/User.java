@@ -1,15 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @author H.O.V.A.
  */
+
 package Source;
 import java.sql.*;
 
-/**
- *
- * @author vishal
- */
+
 public class User {
     public String id,name,department,phone,email;
     public int role;
@@ -27,24 +23,23 @@ public class User {
             PreparedStatement stmt;
             String tables[]={"Applicant","Authority","AV_cell","Dept_office","Security"};
             String username[]={"applicant_id","emp_id","emp_id","emp_id","security_id"};
-            stmt = conn.prepareStatement("SELECT * FROM "+tables[type]+" WHERE "+username[type]+"=?");
+            stmt = conn.prepareStatement("SELECT * FROM "+tables[type]+""
+                    + " WHERE "+username[type]+"=? AND password=md5(?)");
             stmt.setString(1,userid);
+            stmt.setString(2,password);
             ResultSet rs=stmt.executeQuery();
             if(rs.next()){
-                String pwd=rs.getString("password");
-                if(password.equals(pwd)){
-                    String dept="";
-                    int role=-1;
-                    if(type==0||type==3)
-                        dept=rs.getString("dept");
-                    if(type==0)
-                        role=rs.getInt("role");
-                    User u = new User(rs.getString(username[type]),rs.getString("name"),dept,
-                            String.valueOf(rs.getInt("phone")),rs.getString("email"),role);
-                    return u;
-                }
-                else
-                    return null;
+                
+                String dept="";
+                int role=-1;
+                if(type==0||type==3)
+                    dept=rs.getString("dept");
+                if(type==0)
+                    role=rs.getInt("role");
+                User u = new User(rs.getString(username[type]),rs.getString("name"),dept,
+                        String.valueOf(rs.getInt("phone")),rs.getString("email"),role);
+                return u;
+                
             }
             else{
                 return null;
