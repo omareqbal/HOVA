@@ -104,7 +104,7 @@
         
         
         
-        <div class="row" id="approved">
+        <div class="row" id="approved" style="display:none">
         <% List<Booking> res2=Booking.getApprovedForAVCell(); %>
         
         
@@ -154,7 +154,7 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
 
            <script>
-               $("#approved").hide();
+               //$("#approved").hide();
             function actionByAVCell(booking_id,user_id,action){
                 $.ajax({
                     url:"avcellapproval.jsp",

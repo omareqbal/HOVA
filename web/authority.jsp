@@ -105,7 +105,7 @@
         
         
         
-        <div class="row" id="approved">
+        <div class="row" id="approved" style="display:none">
         <% List<Booking> res2=Booking.getApprovedForAuthority(); %>
         
         

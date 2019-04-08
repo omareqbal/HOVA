@@ -55,7 +55,7 @@
         <div class='container'>
             <br/>
             <br/>
-        <div id="new_booking">
+        <div id="new_booking" style="display:none">
         <div class='row'>
             <h4>New Booking</h4>
         </div>
@@ -82,7 +82,7 @@
         <div class='row'>
          Select Date
         </div>
-        <div class="row" style="width:250;">
+        <div class="row" style="width:'250';">
         <input id="datepicker" class="datepicker" data-date-format="mm/dd/yyyy" />
         </div>
         <br/>
@@ -171,7 +171,7 @@
         $("#datepicker").datepicker({
             startDate:'-1d'
         });
-        $("#new_booking").hide();
+        //$("#new_booking").hide();
         function showslots(){
             
             room=$('#room').val();

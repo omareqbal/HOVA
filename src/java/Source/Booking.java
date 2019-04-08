@@ -332,6 +332,12 @@ public class Booking {
             stmt.setString(1,dept);
             stmt.setInt(2,booking_id);
             stmt.executeUpdate();
+            if(action==0){
+                stmt=conn.prepareStatement("UPDATE Booking_slot"
+                        + " SET status='REJECTED' WHERE booking_id=?");
+                stmt.setInt(1,booking_id);
+                stmt.executeUpdate();
+            }
             return true;
         }
         catch(Exception e){
@@ -373,6 +379,12 @@ public class Booking {
             stmt.setString(1,security);
             stmt.setInt(2,booking_id);
             stmt.executeUpdate();
+            if(action==0){
+                stmt=conn.prepareStatement("UPDATE Booking_slot"
+                        + " SET status='REJECTED' WHERE booking_id=?");
+                stmt.setInt(1,booking_id);
+                stmt.executeUpdate();
+            }
             return true;
         }
         catch(Exception e){
